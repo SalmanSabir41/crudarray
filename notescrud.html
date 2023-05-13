@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>cruds practice</title>
+    <style>
+        .box {
+            text-align: center;
+            width: 60%;
+            margin: auto;
+            position: relative;
+        }
+
+        .box input {
+            width: 60%;
+            display: block;
+            margin: 22px auto;
+            height: 30px;
+            font-size: 18px;
+        }
+
+        table {
+            margin: 0 auto;
+            width: 100%;
+            font-size: 23px;
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        input {
+            text-align: center;
+        }
+
+        table tr th,
+        td {
+
+            border: 1px solid black;
+        }
+
+        .box button {
+            padding: 4px 26px;
+            font-size: 16px;
+            margin-bottom: 15px;
+            color: whitesmoke;
+            background-color: blue;
+        }
+
+        #deleteall {
+            position: absolute;
+            left: 0;
+        }
+
+        @media only screen and (max-width: 576px) {
+            .box {
+                width: 100%;
+            }
+
+            .box button {
+                background: black;
+                color: #ffffff;
+            }
+
+            .box input {
+                width: 80%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <input type="text" placeholder="Enter data" id="input">
+        <button id="deleteallButton" onclick="boxDelete()" style="display: none;">Delete</button>
+        <button onclick="pushValue()">push</button>
+        <button onclick="elementUpdate()">update</button>
+        <table>
+            <tr>
+                <th style="font-size:20px; width: 10px; padding:10px 20px;">Select</th>
+                <th>S.no</th>
+                <th>Name</th>
+                <th>Action</th>
+            </tr>
+            <tbody id="tablebody"></tbody>
+        </table>
+    </div>
+    <!-- // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv// -->
+    <script>
+        let array = []
+        let selectedIndex;
+        let selectedRow = []
+        // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv//
+
+        function printElement(data) {
+            let element = document.getElementById('tablebody');
+            let row = ''
+            for (let i = 0; i < data.length; i++) {
+                row = row + `<tr>
+                                  <td>
+                                      <input type="checkbox" onclick="checkClick(this,${i})">
+                                  </td>
+                                  <td>${i + 1}</td>
+                                  <td>${data[i]}</td>
+                                  <td>
+                                    <button onclick='deleteRow(${i})'>Delete</button>
+                                    <button onclick='editElemet(${i})'>Edit</button>
+                                  </td>
+                            </tr>`
+            }
+            element.innerHTML = row
+        }
+
+        // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv//
+        function pushValue() {
+            let data = document.getElementById('input').value;
+            array.push(data)
+            printElement(array)
+            document.getElementById('input').value = ''
+        }
+
+        // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv//
+        function deleteRow(index) {
+            array.splice(index, 1)
+            printElement(array)
+        }
+        // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv//
+        function editElemet(index) {
+            selectedIndex = index
+            document.getElementById('input').value = array[index]
+        }
+        // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv//
+        function elementUpdate() {
+            let value = document.getElementById('input').value;
+            array[selectedIndex] = value;
+            printElement(array)
+            document.getElementById(input).value = ''
+        }
+        // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv//
+        function checkClick(evet, index) {
+            if (evet.checked) {
+                selectedRow.push(index)
+            }
+
+            else {
+                selectedRow.splice(index, 1)
+            }
+
+            let deleteallButton = document.getElementById('deleteallButton')
+
+            if (selectedRow.length > 0) {
+                deleteallButton.style.display = "block"
+            }
+            else {
+                deleteallButton.style.display = "none"
+            }
+            // console.log(selectedRow)
+        }
+        // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv//
+        function boxDelete() {
+            let deleteallButton = document.getElementById('deleteallButton')
+            let remainingItems = [];
+            
+            for (let i = 0; i < array.length; i++) {
+                if (!selectedRow.includes(i)) {
+                    remainingItems.push(array[i])
+                }
+            }
+            printElement(remainingItems)
+            array = remainingItems
+            selectedRow.length = 0
+
+            if (selectedRow.length > 0) {
+                deleteallButton.style.display = "block"
+            }
+            else {
+                deleteallButton.style.display = "none"
+            }
+        }
+        // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv//
+
+
+
+
+
+
+
+
+
+        // function search(value) {
+        //     let findarray = []
+        //     for (let i = 0; i < array.length; i++) {
+
+        //         if (array[i] == value) {
+        //             findarray.push(array[i])
+        //         }
+        //     }
+        //     pushdata(findarray)
+        // }
+
+    </script>
+</body>
+
+</html>

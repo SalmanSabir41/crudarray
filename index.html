@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+  
+</head>
+<style>
+    body {
+    text-align: center;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+    .main_input{
+        width: 70%;
+        height: 25px;
+    }
+    .container {
+    background-color: #2f8408;
+    border: 1px solid;
+}
+    table {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    
+}
+tr {
+    display: flex;
+    column-gap: 111px;
+    padding: 25px 261px;
+    border: 2px solid white;
+    font-size: 20px;
+    background-color: gainsboro;
+    align-items: center;
+}
+th {
+    color: #000d6a;
+}
+button {
+    padding: 10px 25px;
+    margin: 5px;
+}
+.button_a {
+    padding: 10px 25px;
+    margin: 5px;
+    box-shadow: 2px 1px 4px 0px;
+}
+.main_input {
+    width: 69%;
+    height: 30px;
+    font-size: 20px;
+}
+.search_input {
+    height: 30px;
+    border-radius: 58px;
+    outline: none;
+    text-align: center;
+}
+.btn{
+    padding: 6px 15px;
+    margin: 2px;
+    box-shadow: 2px 1px 4px 0px;
+}
+
+@media screen and (min-width: 250px)  and (max-width: 480px) {
+           
+            tr {
+                display: block;
+                padding: 0px 0px;
+                text-align: -webkit-center;
+            }
+            th{
+                padding: 10px 30px;
+            }
+            td{
+                padding: 10px 30px;
+            }
+
+            .main_input {
+                width: 55%;
+                height: 30px;
+                font-size: 20px;
+            }
+            .button_a {
+                padding: 8px 10px;
+                margin: 5px;
+                box-shadow: 2px 1px 1px 0px;
+                text-align: center;
+            }
+            .search_input {
+                height: 30px;
+                border-radius: 58px;
+                outline: none;
+                text-align: center;
+                width: 140px;
+                margin-bottom: 5px;
+            }
+        }
+
+
+</style>
+<body>
+    <div class="container">
+        <div class="table_container">
+            <input type="text" class="main_input" placeholder="Enter list" id="elementInput">
+            
+            <button class="button_a" onclick="addData()">Add Data</button>
+            <button class="button_a" onclick="updateValue()">Update</button>
+            <input type="text" class="search_input" onkeyup="searchValue(this.value)" id="searchElement" placeholder="search name">
+            <button id="deleteallButton" onclick="boxDelete()" style="display: none;">Delete</button>
+            <table>
+                <tr>
+                    <th>Select</th>
+                    <th>S.no</th>
+                    <th>Name</th>
+                    <th>Action</th>
+                </tr>
+                <tbody id="tableRow">
+
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+    <script src="newarray.js"></script>
+    
+</body>
+</html>
