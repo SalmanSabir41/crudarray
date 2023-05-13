@@ -49,15 +49,15 @@
         document.getElementById('elementInput').value=''
     }
 
-    // function searchValue(value) {
-    //     findValue = []
-    //     for(let a=0; a<array.length; a++){
-    //         if(array[a] == value){
-    //             findValue.push(array[a])
-    //         }
-    //     }
-    //     createRow(findValue)
-    // }
+    function searchValue(value) {
+        findValue = []
+        for(let a=0; a<array.length; a++){
+            if(array[a] == value){
+                findValue.push(array[a])
+            }
+        }
+        createRow(findValue)
+    }
 
 
 
